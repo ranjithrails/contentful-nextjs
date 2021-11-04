@@ -1,4 +1,4 @@
-import { client } from '../client';
+import { client } from '../../client';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Image from 'next/image'
 // import Skeleton from '../../components/Skeleton'
@@ -45,7 +45,9 @@ export const getStaticProps = async ({ params }) => {
 }
 
 export default function CompanyDetails({ company }) {
-  // if (!company) return <Skeleton />
+  if (!company) return (
+    <div>Loading..</div>
+  )
 
   const { name, slug, website, industry, specialities, employeeCount, location, linkedinUrl, type, year, description, logoUrl } = company.fields
 

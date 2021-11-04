@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { client } from './client';
+import { client } from '../client';
 import Companies from '../components/Companies'
 import CompanyFilters from '../components/CompanyFilters';
 
