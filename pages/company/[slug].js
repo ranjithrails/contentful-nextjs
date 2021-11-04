@@ -1,7 +1,7 @@
 import { client } from '../client';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Image from 'next/image'
-// import Skeleton from '../../components/Skeleton'
+import Skeleton from '../../components/Skeleton'
 
 export const getStaticPaths = async () => {
 
