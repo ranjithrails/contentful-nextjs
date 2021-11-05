@@ -26,6 +26,7 @@ export async function getStaticProps() {
     revalidate: 20
   }
 }
+
 export default function List({ companies, locationList, specialistList}) {
   const [companyList, setcompanyList] = useState(companies);
   const filteredList = async (location, specialities, year) => {
