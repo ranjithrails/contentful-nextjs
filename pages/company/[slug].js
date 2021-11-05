@@ -1,21 +1,14 @@
-import { client } from '../../client';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import Image from 'next/image'
-// import Skeleton from '../../components/Skeleton'
+import Image from 'next/image';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { getAllCompanies, getCompanyBySlug} from '../../contentful/util';
 
 export const getStaticPaths = async () => {
-
-  const res = await client.getEntries({ 
-    content_type: "company" 
-  })
-  console.log('----------- inside get static paths', res);
-
-  const paths = res.items.map(item => {
+  const allCompanies = await getAllCompanies();
+  const paths = allCompanies.items.map(item => {
     return {
       params: { slug: item.fields.slug }
     }
-  })
-
+  });
   return {
     paths,
     fallback: true
@@ -23,12 +16,7 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const { items } = await client.getEntries({
-    content_type: 'company',
-    'fields.slug': params.slug
-  }) 
-  console.log('----------- inside get static props',items[0]);
-  console.log('static items ------->',items)
+  const { items } = await getCompanyBySlug(params.slug);
   if (!items.length) {
     return {
       redirect: {
@@ -37,7 +25,6 @@ export const getStaticProps = async ({ params }) => {
       },
     }
   }
-
   return {
     props: { company: items[0] },
     revalidate: 20
@@ -49,8 +36,7 @@ export default function CompanyDetails({ company }) {
     <div>Loading..</div>
   )
 
-  const { name, slug, website, industry, specialities, employeeCount, location, linkedinUrl, type, year, description, logoUrl } = company.fields
-
+  const { name, slug, website, industry, specialities, employeeCount, location, linkedinUrl, type, year, description, logo } = company.fields
   return (
     <div>
       <div className="banner">
@@ -59,6 +45,12 @@ export default function CompanyDetails({ company }) {
           width={logoUrl.fields.file.details.image.width}
           height={logoUrl.fields.file.details.image.height}
         /> */}
+      <Image
+      src={'https:' + logo.fields.file.url}
+      alt="Picture of the author"
+      width={500}
+      height={500}
+    />
         <h2>{ name }</h2>
       </div>
 

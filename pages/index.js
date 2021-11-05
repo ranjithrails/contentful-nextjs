@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { client } from '../client';
+// import Head from 'next/head'
+// import Image from 'next/image'
+// import styles from '../styles/Home.module.css'
+import { getAllCompanies, getFilteredCompanies } from '../contentful/util';
 import Companies from '../components/Companies'
 import CompanyFilters from '../components/CompanyFilters';
 
 export async function getStaticProps() {
-
-  const res = await client.getEntries({ content_type: "company" })
-
+  const locationList = [];
+  const specialistList = [];
+  const allCompanies = await getAllCompanies();
+  allCompanies.items.map(company => {
+      let companyFields = company.fields;
+      if(companyFields) {
+        companyFields.location ? locationList.push(companyFields.location) : '';
+        companyFields.specialities ? specialistList.push(companyFields.specialities) : '';
+      }
+  });
   return {
     props: {
-      companies: res.items,
+      companies: allCompanies.items,
+      locationList: locationList,
+      specialistList: specialistList
     },
-    revalidate: 1
+    revalidate: 20
   }
 }
-export default function List({ companies }) {
+export default function List({ companies, locationList, specialistList}) {
   const [companyList, setcompanyList] = useState(companies);
-  
-  const filteredList = async () => {
-    console.log('inside filtered list');
-    const filteredData = await client.getEntries({ 
-      content_type: "company", 
-      'fields.slug': "auditbee"
-    });
+  const filteredList = async (location, specialities, year) => {
+  const filteredData =  await getFilteredCompanies(location, specialities, year);
     setcompanyList(filteredData.items);
   }
-
-  console.log(companyList)
-
   return (
     <div className="App">
         <div className='container'>
@@ -41,8 +42,8 @@ export default function List({ companies }) {
             </header>
             <main>
                 <div className='wrapper'>
-                    <CompanyFilters filteredList={filteredList}/>
-                    <Companies companies={companyList} />
+                    <CompanyFilters filteredList={filteredList} locationList={locationList} specialistList={specialistList}/>
+                   { companyList && <Companies companies={companyList} /> }
                 </div>
             </main>
         </div>
