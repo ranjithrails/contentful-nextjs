@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
-import { MultiSelect } from "react-multi-select-component";
+import { Multiselect } from "multiselect-react-dropdown";
 
 const CompanyFilters = ({ filteredList, locationList, specialistList}) => {
-  const locationListFormatted = [... new Set(locationList.flat().sort())].map((location) => { return {label: location, value: location}});
-  const specialistListFormatted = [... new Set(specialistList.flat().sort())].map((specialist) => { return {label: specialist, value: specialist}});
+  const locationListFormatted = [... new Set(locationList.flat().sort())];
+  const specialistListFormatted = [... new Set(specialistList.flat().sort())];
   const [selectedLocation, setSelectedLocation] = useState([]);
-  const [selectedspecialist, setselectedspecialist] = useState([]);
+  const [selectedspecialist, setSelectedspecialist] = useState([]);
   const firstRender = useRef(true);
 
   useEffect(() => {
@@ -17,19 +17,20 @@ const CompanyFilters = ({ filteredList, locationList, specialistList}) => {
 
   return (
     <Fragment>
-       <MultiSelect
-        options={locationListFormatted}
-        value={selectedLocation}
-        onChange={setSelectedLocation}
-        labelledBy="Select Location"
-      />
-
-    <MultiSelect
-        options={specialistListFormatted}
-        value={selectedspecialist}
-        onChange={setselectedspecialist}
-        labelledBy="Select Location"
-    />
+      <Multiselect 
+      selectedValues={selectedLocation}
+      onSelect={setSelectedLocation}
+      onRemove={setSelectedLocation}
+      showArrow 
+      options={locationListFormatted} 
+      isObject={false} />
+      <Multiselect 
+      selectedValues ={selectedspecialist}
+      onSelect={setSelectedspecialist}
+      onRemove={setSelectedspecialist}
+      showArrow 
+      options={specialistListFormatted} 
+      isObject={false} />
     </Fragment>
   )
 };
