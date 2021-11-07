@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
+import { Row } from 'react-bootstrap';
+import Hero from "../components/Hero"
 import { getAllCompanies, getFilteredCompanies } from '../contentful/util';
 import Companies from '../components/Companies'
 import CompanyFilters from '../components/CompanyFilters';
@@ -23,7 +22,7 @@ export async function getStaticProps() {
       locationList: locationList,
       specialistList: specialistList
     },
-    revalidate: 20
+    revalidate: 60
   }
 }
 
@@ -34,20 +33,16 @@ export default function List({ companies, locationList, specialistList}) {
     setcompanyList(filteredData.items);
   }
   return (
-    <div className="App">
-        <div className='container'>
-            <header>
-                <div className='wrapper'>
-                    <span className='logo'>Software Companies</span>
-                </div>
-            </header>
-            <main>
-                <div className='wrapper'>
-                    <CompanyFilters filteredList={filteredList} locationList={locationList} specialistList={specialistList}/>
-                   { companyList && <Companies companies={companyList} /> }
-                </div>
-            </main>
-        </div>
+    <>
+    <Hero />
+    <Row>
+    <div className="py-5 bg-light">
+    <div className="container">
+      <CompanyFilters filteredList={filteredList} locationList={locationList} specialistList={specialistList}/>
+      { companyList && <Companies companies={companyList} /> }
     </div>
+    </div>
+    </Row>         
+    </>
 );
 }

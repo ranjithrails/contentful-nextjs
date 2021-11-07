@@ -3,9 +3,9 @@ import Company from './CompanyCard'
 
 const Companies = ({ companies }) => {
     return (
-        <div>
-            {companies.map((company, index) => <Company company={company} key={index} />)}
-        </div>
+          <div className="row">
+          {companies.map((company, index) => <Company company={company} key={index} />)}            
+          </div>
     )
 }
 

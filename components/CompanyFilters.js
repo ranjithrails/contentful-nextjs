@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Container, Row, Col} from 'react-bootstrap';
 import { Multiselect } from "multiselect-react-dropdown";
 
 const CompanyFilters = ({ filteredList, locationList, specialistList}) => {
@@ -16,22 +17,30 @@ const CompanyFilters = ({ filteredList, locationList, specialistList}) => {
   },[selectedLocation, selectedspecialist]);
 
   return (
-    <Fragment>
+    <Container >
+      <Row>
+      <Col>
       <Multiselect 
       selectedValues={selectedLocation}
       onSelect={setSelectedLocation}
       onRemove={setSelectedLocation}
-      showArrow 
+      showArrow
+      avoidHighlightFirstOption
       options={locationListFormatted} 
-      isObject={false} />
+      isObject={false} placeholder = "Location"/>
+      </Col>
+      <Col>
       <Multiselect 
       selectedValues ={selectedspecialist}
       onSelect={setSelectedspecialist}
       onRemove={setSelectedspecialist}
       showArrow 
+      avoidHighlightFirstOption
       options={specialistListFormatted} 
-      isObject={false} />
-    </Fragment>
+      isObject={false} placeholder = "Specialities"/>
+      </Col>
+      </Row>
+    </Container>
   )
 };
 
