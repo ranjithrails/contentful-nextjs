@@ -98,7 +98,8 @@ a {
 .member-details .member_contact {
     padding: 40px;
     position: relative;
-    margin-top: 40px
+    margin-top: 40px;
+    word-break: break-word;
 }
 
 .member-details .member_contact .media-icon {
