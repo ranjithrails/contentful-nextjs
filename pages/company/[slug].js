@@ -62,7 +62,7 @@ export default function CompanyDetails({ company }) {
                             </p>
                         </div>
                         <div className="member_desc">
-                            <h4>Indutsry</h4>
+                            <h4>Industry</h4>
                             <p>
                             {industry}
                             </p>
