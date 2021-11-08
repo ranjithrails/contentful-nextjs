@@ -17,8 +17,8 @@ const Company = ({ company }) => {
         <div className="card-body">
         <h4 className="card-title">{name}</h4>
         <p className="card-text"><strong>Industry: </strong>{industry}</p>
-        <p className="card-text"><strong>Specialities: </strong> {specialities ? specialities.join(',') : ''}</p>
-        <p className="card-text"><strong>Locations: </strong>{location ? location.join(',') : ''}</p>
+        <p className="card-text"><strong>Specialities: </strong> {specialities ? specialities.join(', ') : ''}</p>
+        <p className="card-text"><strong>Locations: </strong>{location ? location.join(', ') : ''}</p>
         <div className="d-flex justify-content-between align-items-center">
           <Link href={'/company/' + slug}><a href="#" className="btn btn-primary">View More</a></Link>
           <small className="text-muted">{year}</small>

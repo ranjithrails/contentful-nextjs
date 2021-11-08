@@ -19,7 +19,7 @@ const CompanyFilters = ({ filteredList, locationList, specialistList}) => {
   return (
     <Container >
       <Row>
-      <Col>
+      <Col md={3}>
       <Multiselect 
       selectedValues={selectedLocation}
       onSelect={setSelectedLocation}
@@ -29,7 +29,7 @@ const CompanyFilters = ({ filteredList, locationList, specialistList}) => {
       options={locationListFormatted} 
       isObject={false} placeholder = "Location"/>
       </Col>
-      <Col>
+      <Col md={3}>
       <Multiselect 
       selectedValues ={selectedspecialist}
       onSelect={setSelectedspecialist}
